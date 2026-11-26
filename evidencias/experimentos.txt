@@ -1,0 +1,25 @@
+> sam local invoke GuiaFunction -e events/pedido.json
+REPORT RequestId: 7ed99cb7-c29a-4871-8dfa-237b68ee8df2	Init Duration: 0.05 ms	Duration: 50.95 ms	Billed Duration: 51 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+{"statusCode": 201, "headers": {"Content-Type": "application/json"}, "body": "{\"guia\": \"G-R-001\", \"hospital\": \"H-Recife\", \"bolsas\": [\"O-NEG-0142\"], \"invocacaoNesteAmbiente\": 1}"}
+Tempo total do comando: 13.368 s
+> sam local invoke GuiaFunction -e events/pedido.json
+REPORT RequestId: 5b63d0bb-7ba0-43bb-ba05-0bccdbdd7822	Init Duration: 0.05 ms	Duration: 52.43 ms	Billed Duration: 53 ms	Memory Size: 128 MB	Max Memory Used: 128 MB	
+{"statusCode": 201, "headers": {"Content-Type": "application/json"}, "body": "{\"guia\": \"G-R-001\", \"hospital\": \"H-Recife\", \"bolsas\": [\"O-NEG-0142\"], \"invocacaoNesteAmbiente\": 1}"}
+Tempo total do comando: 7.719 s
+> sam local start-api 
+POST /guias {"requisicaoId": "R-002", "hospital": "H-Caruaru"} -> HTTP 201 {"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 1}
+POST /guias {"requisicaoId": "R-002", "hospital": "H-Caruaru"} -> HTTP 201 {"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 1}
+POST /guias {"requisicaoId": "R-002", "hospital": "H-Caruaru"} -> HTTP 201 {"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 1}
+POST /guias {} -> HTTP 400 {"erro": "requisicaoId obrigatório"}
+POST /guias {"requisicaoId": "R-003", "demorar": true} -> HTTP 502 {"message":"Internal server error"}
+
+Function 'GuiaFunction' timed out after 3 seconds
+> sam local start-api --warm-containers LAZY
+POST /guias {"requisicaoId": "R-002", "hospital": "H-Caruaru"} -> HTTP 201 {"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 1}
+POST /guias {"requisicaoId": "R-002", "hospital": "H-Caruaru"} -> HTTP 201 {"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 2}
+POST /guias {"requisicaoId": "R-002", "hospital": "H-Caruaru"} -> HTTP 201 {"guia": "G-R-002", "hospital": "H-Caruaru", "bolsas": [], "invocacaoNesteAmbiente": 3}
+> sam build --use-container -t C:\dev\Bloodell\bloodell-serverless-guias\tmpr4caxl33\template.yaml --build-dir C:\dev\Bloodell\bloodell-serverless-guias\tmpr4caxl33\build
+Build Succeeded
+Tempo total do comando: 5.445 s
+> sam local start-api -t C:\dev\Bloodell\bloodell-serverless-guias\tmpr4caxl33\build\template.yaml
+POST /guias {"requisicaoId": "R-003", "demorar": true} -> HTTP 201 {"guia": "G-R-003", "hospital": null, "bolsas": [], "invocacaoNesteAmbiente": 1}
