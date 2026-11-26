@@ -47,6 +47,8 @@ Encerre o servidor, altere `Timeout: 3` para `Timeout: 10` em `template.yaml`, e
 
 ## Evidências
 
+[Assistir ao vídeo da atividade no YouTube](https://youtu.be/uyRUuWm1h6E?si=dYLOQY2ODHWN0Tpa)
+
 O [registro dos experimentos](evidencias/experimentos.txt) contém os tempos, as respostas HTTP, os contadores e os testes dos dois limites de execução.
 
 A [gravação da demonstração local](evidencias/demonstracao.webm) mostra uma nova execução da invocação por evento, da emissão de guia por HTTP e da chamada que excede três segundos. A gravação apresenta os comandos e a saída real em uma tela dedicada, sem narração. As capturas mostram o [evento](evidencias/01-evento.png), o [HTTP 201](evidencias/02-http.png) e o [timeout](evidencias/03-timeout.png).
